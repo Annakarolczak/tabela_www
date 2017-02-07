@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Katalog turbosprężarek</title>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script type="text/javascript">
+
+	<!-- FUNCTIONS READY ON LOAD -->
+		$(document).ready(function() {		
+			makeTable();
+
+			$("button").click(function(){
+				var id = $(this).attr('id');
+      			removeRow(id);
+				$(this).closest('tr').remove()     
+			});	
+			
+			$("#searchInput").keyup(function () {
+				var data = this.value.split(" ");
+				var jo = $("#tabprincipal").find("tr");
+				if (this.value == "") {
+					jo.show();
+					return;
+				}
+				jo.hide();
+				jo.filter(function (i, v) {
+					var $t = $(this);
+					for (var d = 0; d < data.length; ++d) {
+						if ($t.is(":contains('" + data[d] + "')")) {
+							return true;
+						}
+					}
+					return false;
+				})
+				.show();
+			}).focus(function () {
+				this.value = "";
+				$(this).unbind('focus');
+			});
+		});
+	<!-- END OF FUNCTIONS READY ON LOAD -->
+
+
+	<!-- CAR CLASS + LOCAL STORAGE -->
+			class Turbo {
+				constructor (marka, model, pojemnoscsilnika, moc, datarejestracji, nrczesci, producent, cena) {
+					this._marka = marka
+					this._model = model
+					this._pojemnoscsilnika = pojemnoscsilnika
+					this._moc = moc
+					this._datarejestracji = datarejestracji
+					this._nrczesci = nrczesci
+					this._producent = producent
+					this._cena = cena
+				}
+				
+				set marka(marka) {this._marka = marka}
+				get marka() {return this._marka}
+				
+				set model(model) {this._model = model}
+				get model() {return this._model}
+				
+				set pojemnoscsilnika(pojemnoscsilnika) {this._pojemnoscsilnika = pojemnoscsilnika}
+				get pojemnoscsilnika() {return this._pojemnoscsilnika}
+				
+				set moc(moc) {this._moc = moc}
+				get moc() {return this._moc}
+
+				set datarejestracji(datarejestracji) {this._datarejestracji = datarejestracji}
+				get datarejestracji() {return this._datarejestracji}
+				
+				set nrczesci(nrczesci) {this._nrczesci = nrczesci}
+				get nrczesci() {return this._nrczesci}	
+
+				set producent(producent) {this._producent = producent}
+				get producent() {return this._producent}
+
+				set cena(cena) {this._cena = cena}
+				get cena() {return this._cena}					
+			}
+			
+			var Audi = new Turbo("Audi", "TT", "340", 220, "2014-01-21", "2014-01-21", "KKK", 1200);
+			var BMW = new Turbo("BMW", "TT", "340", 220, "2014-01-21", "2014-01-21", "KKK", 1200);
+			var Citroen = new Turbo("Citroen", "TT", "340", 220, "2014-01-21", "2014-01-21", "KKK", 1200);
+			var Dodge = new Turbo("Dodge", "TT", "340", 220, "2014-01-21", "2014-01-21", "KKK", 1200);
+			var Fiat = new Turbo("Fiat", "TT", "340", 220, "2014-01-21", "2014-01-21", "KKK", 1200);
+			var Lexus = new Turbo("Lexus", "TT", "340", 220, "2014-01-21", "2014-01-21", "KKK", 1200);
+
+			var TurbosArray = [];
+
+			if (localStorage.getItem("Turbos") === null) {
+				console.log("storage is empty")
+				TurbosArray = [Audi, BMW, Citroen, Dodge, Fiat, Lexus];
+				localStorage.setItem("Turbos", JSON.stringify(TurbosArray));
+			} else {
+				console.log("storage is full")
+				TurbosArray = (JSON.parse(localStorage.getItem("Turbos")));
+			}			
+	<!-- END OF CAR CLASS + LOCAL STORAGE -->
+	
+	<!-- SET TABLE -->
+		var data = [[]];
+	
+		function makeTable() {
+			var headers = "<tr class='header'>"
+			+"<th>Marka</th>"
+			+"<th>Model</th>"
+			+"<th>Pojemność Silnika</th>"
+			+"<th>Moc</th>"
+			+"<th>Data pierwszej rejestracji auta</th>"
+			+"<th>Numer cześci</th>"
+			+"<th>Producent</th>"
+			+"<th>Cena</th>"
+			+"<th>Usuń Turbo</th>"
+			+"</tr>";
+			$(headers).appendTo("#tabprincipal tbody");
+			
+			for (i = 0; i < TurbosArray.length; i++) { 
+				var newRow = "<tr class='tabrow' id="+i+">"
+				+"<td>"+TurbosArray[i]._marka+"</td>"
+				+"<td>"+TurbosArray[i]._model+"</td>"
+				+"<td>"+TurbosArray[i]._pojemnoscsilnika+"</td>"
+				+"<td>"+TurbosArray[i]._moc+"</td>"
+				+"<td>"+TurbosArray[i]._datarejestracji+"</td>"
+				+"<td>"+TurbosArray[i]._nrczesci+"</td>"
+				+"<td>"+TurbosArray[i]._producent+"</td>"
+				+"<td>"+TurbosArray[i]._cena+"</td>"
+				+"<td><button id='"+i+"'>Remove</button></td>"
+				+"</tr>";
+				$(newRow).appendTo("#tabprincipal tbody");
+			}
+		}
+	<!-- END OF SET TABLES -->
+
+	<!-- REMOVE FROM LOCALE STORAGE -->
+		function removeRow(id) {
+			var array = (JSON.parse(localStorage.getItem("Turbos")));
+			array.splice(id, 1);
+    	localStorage.setItem("Turbos", JSON.stringify(array));    		
+		}
+	<!-- END REMOVE FROM LOCALE STORAGE -->
+		</script>
+	</head>
+	
+	<body>
+		<appTitle>Katalog turbosprężarek</appTitle>
+		<ul>
+			<li><a href="addNew2.html">Add new</a></li>
+			<li><input class="main" id="searchInput" value="Wyszukaj. [CASE SENSITIVE]"></li>
+		</ul>
+		
+		<table id="tabprincipal">
+		    <tbody></tbody>
+		</table>
+	</body>
+</html>
