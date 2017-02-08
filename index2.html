@@ -89,13 +89,16 @@
 
 			var TurbosArray = [];
 
+
 			if (localStorage.getItem("Turbos") === null) {
 				console.log("storage is empty")
 				TurbosArray = [Audi, BMW, Citroen, Dodge, Fiat, Lexus];
+				console.log(TurbosArray);
 				localStorage.setItem("Turbos", JSON.stringify(TurbosArray));
 			} else {
 				console.log("storage is full")
 				TurbosArray = (JSON.parse(localStorage.getItem("Turbos")));
+				console.log(TurbosArray);
 			}			
 	<!-- END OF CAR CLASS + LOCAL STORAGE -->
 	
@@ -144,7 +147,9 @@
 	</head>
 	
 	<body>
-		<appTitle>Katalog turbosprężarek</appTitle>
+		<appTitle>Katalog turbosprężarek
+			<div id="logo"><img src="logo.jpg" alt="logo" ></div>
+		</appTitle>
 		<ul>
 			<li><a href="addNew2.html">Add new</a></li>
 			<li><input class="main" id="searchInput" value="Wyszukaj. [CASE SENSITIVE]"></li>

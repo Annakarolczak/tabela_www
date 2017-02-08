@@ -83,10 +83,7 @@
 			            var moc = $('#moc').val()
 			            var datarejestracji = $('#datarejestracji').val()
 			            var nrczesci = $('#nrczesci').val()
-			            // var producent = $('#producent').val()
-			            for (var x=0; x<$('#producent').length; x++) {
-        					var producent[x].addEventListener('click', checkRadio);
-    					}
+			            var producent = $('input[name=producent]:checked').val()
 			            var cena = $('#cena').val()
 			            
 			            var newTurbo = new Turbo(marka, model, pojemnoscsilnika, moc, datarejestracji, nrczesci, producent, cena);
@@ -112,12 +109,13 @@
 
 	<body>
 
-		<appTitle>Add new turbo</appTitle>
+		<appTitle>Dodaj nową turbosprężarkę
+			<div id="logo"><img src="logo.jpg" alt="logo" ></div>
+		</appTitle>
 		<ul>
 		  <li><a href="index2.html">Back</a></li>
 		</ul>
 		<br><br>
-		
 		<div class="form">
 			<form id="myForm">
 				<p>
