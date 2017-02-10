@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Turbo atributes</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+		<script type="text/javascript">
+
+			class Turbo {
+				constructor (marka, model, pojemnoscsilnika, moc, datarejestracji, nrczesci, producent, cena) {
+					this._marka = marka
+					this._model = model
+					this._pojemnoscsilnika = pojemnoscsilnika
+					this._moc = moc
+					this._datarejestracji = datarejestracji
+					this._nrczesci = nrczesci
+					this._producent = producent
+					this._cena = cena
+				}
+				
+				set marka(marka) {this._marka = marka}
+				get marka() {return this._marka}
+				
+				set model(model) {this._model = model}
+				get model() {return this._model}
+				
+				set pojemnoscsilnika(pojemnoscsilnika) {this._pojemnoscsilnika = pojemnoscsilnika}
+				get pojemnoscsilnika() {return this._pojemnoscsilnika}
+				
+				set moc(moc) {this._moc = moc}
+				get moc() {return this._moc}
+
+				set datarejestracji(datarejestracji) {this._datarejestracji = datarejestracji}
+				get datarejestracji() {return this._datarejestracji}
+				
+				set nrczesci(nrczesci) {this._nrczesci = nrczesci}
+				get nrczesci() {return this._nrczesci}	
+
+				set producent(producent) {this._producent = producent}
+				get producent() {return this._producent}
+
+				set cena(cena) {this._cena = cena}
+				get cena() {return this._cena}					
+			}
+
+			$(document).ready(function () {
+			    $('#myForm').validate({
+			        rules: {
+			            marka: {
+			                required: true,
+			                minlength: 3
+			            },
+			            model: {
+			                required: true,
+			            },
+			            pojemnoscsilnika: {
+			                required: true,
+			                minlength: 2
+			            },
+			            moc: {
+			                required: true,
+			                minlength: 2
+			            },
+			            datarejestracji: {
+			                required: true
+			            },
+			            nrczesci: {
+			                required: true
+			            },
+			            producent: {
+			                required: true
+			            },
+			            cena: {
+			                required: true
+			            }
+			        },
+			        submitHandler: function (form) {
+
+			           	var marka = $('#marka').val()
+			            var model = $('#model').val()
+			            var pojemnoscsilnika = $('#pojemnoscsilnika').val()
+			            var moc = $('#moc').val()
+			            var datarejestracji = $('#datarejestracji').val()
+			            var nrczesci = $('#nrczesci').val()
+			            var producent = $('input[name=producent]:checked').val()
+			            var cena = $('#cena').val()
+			            
+			            var newTurbo = new Turbo(marka, model, pojemnoscsilnika, moc, datarejestracji, nrczesci, producent, cena);
+			    		var TurbosArray = (JSON.parse(localStorage.getItem("Turbos")));
+			    		window.localStorage.clear();
+			    		TurbosArray.push(newTurbo);
+			    		localStorage.setItem("Turbos", JSON.stringify(TurbosArray));
+
+						$(':input','#myForm')
+ 							.not(':button, :submit, :reset, :hidden')
+ 							.val('')
+							.removeAttr('checked')
+							.removeAttr('selected');
+
+						alert('Nowa turbosprężarka dodana');
+			            return true;
+			        }
+			    });
+			});
+
+ 		</script>
+	</head>	
+<body>
+	<header class="w3-container">
+		Dodaj nową turbosprężarkę
+		<div id="logo"><img src="logo.jpg" alt="logo"></div>
+	</header>
+	<ul>
+		<li><a href="index.html">Back</a></li>
+	</ul><br><br>	
+	<div class="w3-row">
+		<div class="w3-container w3-quarter">
+				<div class="form">
+				<form class="w3-table w3-bordered w3-striped" id="myForm">
+					<div class="tab">
+					<p>
+						Marka:<br>
+						<input type="text" name="marka" id="marka"/>
+					</p>
+					<p>
+						Model:<br>
+						<input type="text" name="model" id="model"/>
+					</p>
+					<p>
+						Pojemnosc silnika:<br>
+						<input type="text" name="pojemnoscsilnika" id="pojemnoscsilnika"/>
+					</p>
+					<p>
+						Moc:<br>
+						<input type="number" name="moc" id="moc"/>
+					</p>
+					<p>
+						Data pierwszej rejestracji auta:<br>
+						<input type="date" name="datarejestracji" id="datarejestracji"/>
+					</p>
+					<p>
+						Numer czesci:<br>
+						<input type="text" name="nrczesci" id="nrczesci"/>
+					</p>
+					<p>
+						Producent:<br>
+						<input type="radio" value="Garrett" name="producent" id="producent"/> Garrett
+	    				<input type="radio" value="KKK" name="producent" id="producent"/> KKK
+	    				<input type="radio" value="IHI" name="producent" id="producent"/> IHI
+	    				<input type="radio" value="Inne" name="producent" id="producent"/> Inne
+					</p>
+					<p>
+						Cena:<br>
+						<input type="number" name="cena" id="cena"/>
+					</p>
+					<input type="submit" value="Submit"></>
+					</div>
+				</form>
+		</div>
+		</div>
+		<div class="w3-half">
+			<div class="w3-third w3-padding-4"></div>
+			<div class="w3-twothird">
+				<div class="w3-container w3-padding-32 w3-margin" style="background-color: #000033;">
+				<img class="w3-center" style="width:100%" src="maszyna2.jpg" alt="logo"><br><br>
+				<div class="w3-third w3-center" style="width:33.33%;">
+				<img style="width:80%" src="5.png" alt="logo"></div>
+				<div class="w3-third w3-center" style="width:33.33%;">
+				<img style="width:100%" src="7.png" alt="logo"></div>
+				<div class="w3-third w3-center" style="width:33.33%;">
+				<img style="width:80%" src="8.png" alt="logo"></div></div> 
+			</div>
+		</div>
+	</div></div>
+	<div class="w3-container w3-padding-32"></div> 
+	<footer class="w3-container>">www.turboclinic.pl</footer> 
+</body>
+</html>
