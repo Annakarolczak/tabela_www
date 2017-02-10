@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script type="text/javascript">
 
-	<!-- FUNCTIONS READY ON LOAD -->
+
 		$(document).ready(function() {		
 			makeTable();
 
@@ -16,7 +16,7 @@
       			removeRow(id);
 				$(this).closest('tr').remove()     
 			});	
-			
+
 			$("#searchInput").keyup(function () {
 				var data = this.value.split(" ");
 				var jo = $("#tableschema").find("tr");
@@ -40,10 +40,7 @@
 				$(this).unbind('focus');
 			});
 		});
-	<!-- END OF FUNCTIONS READY ON LOAD -->
 
-
-	<!-- CAR CLASS + LOCAL STORAGE -->
 			class Turbo {
 				constructor (marka, model, pojemnoscsilnika, moc, datarejestracji, nrczesci, producent, cena) {
 					this._marka = marka
@@ -101,9 +98,7 @@
 				TurbosArray = (JSON.parse(localStorage.getItem("Turbos")));
 				console.log(TurbosArray);
 			}			
-	<!-- END OF CAR CLASS + LOCAL STORAGE -->
-	
-	<!-- SET TABLE -->
+
 		var data = [[]];
 	
 		function makeTable() {
@@ -130,20 +125,18 @@
 				+"<td>"+TurbosArray[i]._nrczesci+"</td>"
 				+"<td>"+TurbosArray[i]._producent+"</td>"
 				+"<td>"+TurbosArray[i]._cena+"</td>"
-				+"<td><button id='"+i+"'>Remove</button></td>"
+				+"<td><button id'"+i+"'>Remove</button></td>"
 				+"</tr>";
 				$(newRow).appendTo("#tableschema tbody");
 			}
 		}
-	<!-- END OF SET TABLES -->
 
-	<!-- REMOVE FROM LOCALE STORAGE -->
 		function removeRow(id) {
 			var array = (JSON.parse(localStorage.getItem("Turbos")));
 			array.splice(id, 1);
     	localStorage.setItem("Turbos", JSON.stringify(array));    		
 		}
-	<!-- END REMOVE FROM LOCALE STORAGE -->
+
 		</script>
 	</head>
 	
@@ -162,3 +155,7 @@
 		<footer>www.turboclinic.pl</footer>
 	</body>
 </html>
+
+
+
+   
